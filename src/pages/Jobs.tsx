@@ -39,21 +39,21 @@ import {
 } from "@/components/ui/select";
 
 // أنواع الحالة والقيم العربية
-
 type Status =
-  | "new"
+  | "applied"
   | "review"
-  | "accepted"
+  | "interview"
+  | "offer"
   | "rejected"
-  | "waiting";
-
+  | "internal";
 
 const STATUS_LABELS: Record<Status, string> = {
-  new: "جديد",
-  review: "قيد المراجعة",
-  accepted: "مقبول",
+  applied: "تم التقديم",
+  review: "تحت المراجعة",
+  interview: "مقابلة",
+  offer: "عرض",
   rejected: "مرفوض",
-  waiting: "بانتظار الرد",
+  internal: "داخلي",
 };
 
 const ARABIC_TO_STATUS: Record<string, Status> = Object.fromEntries(
@@ -109,7 +109,7 @@ const formSchema = z.object({
       message: "أدخل رقمًا صحيحًا",
     }),
   status: z.custom<Status>((val) =>
-    ["new", "review", "accepted", "rejected", "waiting"].includes(
+    ["applied", "review", "interview", "offer", "rejected", "internal"].includes(
       String(val)
     )
   , { message: "الحالة مطلوبة" }) as z.ZodType<Status>,
